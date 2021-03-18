@@ -25,22 +25,19 @@ router.route("/").post((req,res)=>{
     console.log(texto);
     console.log('------------------------------------');
 
-    const text = 'Team, I know that times are tough! Product '
-    + 'sales have been disappointing for the past three '
-    + 'quarters. We have a competitive product, but we '
-    + 'need to do a better job of selling it!';
-
     const toneParams = {
-    toneInput: { 'text': text },
+    toneInput: { 'text': texto },
     contentType: 'application/json',
     };
 
     toneAnalyzer.tone(toneParams)
     .then(toneAnalysis => {
-        console.log(JSON.stringify(toneAnalysis, null, 2));
+        //console.log(JSON.stringify(toneAnalysis, null, 2));
+        res.json(toneAnalysis.result.document_tone.tones)
     })
     .catch(err => {
         console.log('error:', err);
+        res.json(err)
     });
 })
 
