@@ -7,9 +7,9 @@ const { IamAuthenticator } = require('ibm-watson/auth');
 const toneAnalyzer = new ToneAnalyzerV3({
     version: '2017-09-21',
     authenticator: new IamAuthenticator({
-      apikey: process.env.API_KEY,
+      apikey: process.env.API_KEY_CF,
     }),
-    serviceUrl: process.env.URL,
+    serviceUrl: process.env.URL_CF,
 });
 
 router.route("/autor").get((req,res)=>{
