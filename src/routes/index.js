@@ -1,26 +1,10 @@
 const router = require('express').Router();
 
-// importamos los routes
-const helloRoute = require('./hello');
-const homeRoute = require('./home');
-
-// paths con su propio route
-router.use('/hello', helloRoute);
-router.use('/home', homeRoute);
-
-// path con retorno directo
-router.use('/', (req, res) => 
-{ 
-    res.json(
-        { 
-            version: "0.0.1",
-            paths: [
-                "/hello",
-                "/home"
-            ] 
-        }
-        ); 
-}
-)
+router.route("/autor").get((req,res)=>{
+    res.json({
+        alumno: "MCR",
+        servicio: "Cloud Foundry en IBM Cloud"
+    })
+})
 
 module.exports = router;
