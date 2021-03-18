@@ -20,25 +20,32 @@ router.route("/autor").get((req,res)=>{
 })
 
 router.route("/").post((req,res)=>{
-    let texto = req.body.texto
-    console.log('-----------Texto recibido-----------');
-    console.log(texto);
-    console.log('------------------------------------');
+    if (req.body.texto){
+        let texto = req.body.texto
+        console.log('-----------Texto recibido-----------');
+        console.log(texto);
+        console.log('------------------------------------');
 
-    const toneParams = {
-    toneInput: { 'text': texto },
-    contentType: 'application/json',
-    };
+        const toneParams = {
+        toneInput: { 'text': texto },
+        contentType: 'application/json',
+        };
 
-    toneAnalyzer.tone(toneParams)
-    .then(toneAnalysis => {
-        //console.log(JSON.stringify(toneAnalysis, null, 2));
-        res.json(toneAnalysis.result.document_tone.tones)
-    })
-    .catch(err => {
-        console.log('error:', err);
-        res.json(err)
-    });
+        toneAnalyzer.tone(toneParams)
+        .then(toneAnalysis => {
+            //console.log(JSON.stringify(toneAnalysis, null, 2));
+            res.json(toneAnalysis.result.document_tone.tones)
+        })
+        .catch(err => {
+            console.log('error:', err);
+            res.status(500).json(err)
+        });
+    }else{
+        res.status(400).json({
+            error: "Falta prámtero 'texto' en el cuerpo de la solicitud"
+        })
+    }
+    
 })
 
 module.exports = router;
